@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+
+function Hello() {
+  // #1
+  // function byFn() {
+  //   console.log("bye :(");
+  // }
+  // function hiFn() {
+  //   console.log("hi :)");
+  //   return byFn;
+  // }
+  // useEffect(hiFn, []);
+
+  // #2
+  // useEffect(function () {
+  //   console.log("hi :)");
+  //   return function () {
+  //     console.log("bye :(");
+  //   };
+  // }, []);
+
+  // #3
+  useEffect(() => {
+    console.log("hi :)");
+    return () => console.log("bye :(");
+  }, []);
+
+  return <h1>Hello</h1>;
+}
 
 function App() {
+  const [showing, setShowing] = useState(false);
+  const onClick = () => setShowing((prev) => !prev);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {showing ? <Hello /> : null}
+      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
     </div>
   );
 }
